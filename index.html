@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>classList Example</title>
+        <!-- css style starts here  -->
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                position: relative;
+                border: 2px solid green;
+                width: 50%;
+                padding: 10px;
+                margin-left: 33%;
+                /* margin: auto; */
+                margin-top: 50px;
+                /* text-align: center; */
+            }
+            .container {
+                height: 500px;
+            }
+            .section-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .divider {
+                width: 100%;
+                height: 1px;
+                margin-top: 0.3rem;
+                background-color: bisque;
+            }
+            .color-display {
+                width: 100%;
+                height: 8rem;
+                margin-top: 1rem;
+            }
+
+            .toast-message {
+                padding: 5px;
+                box-shadow: 2px gainsboro;
+                z-index: 100;
+                position: fixed;
+                top: 2rem;
+                right: 2rem;
+                border-radius: 5px;
+                border: 1px solid yellow;
+                color: black;
+                box-sizing: content-box;
+                text-align: center;
+                width: 150px;
+                background-color: aliceblue;
+                cursor: pointer;
+            }
+            .toast-message-slide-in {
+                animation: slide-in 0.5s ease-in;
+            }
+
+            .toast-message-slide-out {
+                animation: slide-out 0.5s ease-out;
+            }
+            @keyframes slide-in {
+                from {
+                    transform: translateX(200px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0px);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slide-out {
+                from {
+                    transform: translateX(0px);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(200px);
+                    opacity: 0;
+                }
+            }
+            .mode-radio-group {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                padding: 10px 0;
+                text-align: center;
+            }
+
+            .selected-color-code {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .text-input,
+            .text-input:disabled {
+                padding: 5px 25px;
+                margin-top: 0.25rem;
+                outline: none;
+                border-radius: 0.15rem;
+                background: transparent;
+                width: 100%;
+            }
+            .hex-input-group {
+                position: relative;
+            }
+            .hex-input-group .hex-icon {
+                position: absolute;
+                top: 21px;
+                left: 0px;
+                background-color: gray;
+                color: black;
+                padding: 5px;
+                padding-left: 10px;
+                text-align: center;
+            }
+            .color-sliders {
+                width: 100%;
+                box-sizing: bo;
+            }
+            .load {
+                text-align: center;
+                padding: 10px;
+            }
+            .color-sliders-group {
+                size: 100%;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                justify-content: space-evenly;
+            }
+            label {
+                user-select: none;
+            }
+            .slider-label-group {
+                display: flex;
+                justify-content: space-evenly;
+            }
+        </style>
+        <!-- css style ends here  -->
+    </head>
+    <body>
+        <div class="container">
+            <!-- section1 starts .................. -->
+            <section class="section">
+                <div class="section-header">
+                    <h3 class="section-title">Display Color</h3>
+                    <button
+                        class="section-header-action"
+                        id="generate-random-color"
+                    >
+                        Random Color
+                    </button>
+                </div>
+                <div class="divider"></div>
+
+                <!-- color display box  -->
+                <div class="color-display" id="color-display"></div>
+            </section>
+            <!-- section1 ends ...................... -->
+
+            <!-- section2 starts .................... -->
+            <section class="section">
+                <section class="section-header">
+                    <h3 class="section-title">Change & Copy Color</h3>
+                    <button
+                        class="section-header-action"
+                        id="copy-to-clipboard"
+                    >
+                        Copy to Clipboard
+                    </button>
+                </section>
+                <div class="divider"></div>
+                <div class="select-copy-mode">
+                    <p class="load">Select Copy Mode</p>
+                    <div class="mode-radio-group">
+                        <div class="mode-input-group">
+                            <input
+                                type="radio"
+                                name="color-mode"
+                                id="color-mode-hex"
+                                value="hex"
+                                checked
+                            />
+                            <label for="color-mode-hex">Hex</label>
+                        </div>
+                        <div class="mode-input-group">
+                            <input
+                                type="radio"
+                                name="color-mode"
+                                value="rgb"
+                                id="color-mode-rgb"
+                            />
+                            <label for="color-mode-rgb">RGB</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="selected-color-code">
+                    <div class="hex-input-group">
+                        <label for="input-hex" class="load">Hex</label>
+                        <input
+                            type="text"
+                            placeholder="dddeee"
+                            id="input-hex"
+                            class="text-input hex-input"
+                        />
+                        <div class="hex-icon">#</div>
+                    </div>
+                    <div class="rgb-input-group">
+                        <label for="input-rgb" class="load">RGB</label>
+                        <input
+                            type="text"
+                            placeholder="rgb(225,210,120)"
+                            id="input-rgb"
+                            class="text-input rgb-input"
+                            disabled
+                        />
+                    </div>
+                </div>
+                <div class="color-sliders">
+                    <p class="load">Adjust RGB Colors</p>
+                    <div class="color-sliders-group">
+                        <div>
+                            <div class="slider-label-group">
+                                <p>Red</p>
+                                <p id="color-slider-red-label">221</p>
+                            </div>
+                            <input
+                                type="range"
+                                name=""
+                                id="color-slider-red"
+                                min="0"
+                                max="255"
+                                value="221"
+                                class="color-slider color-slider-red"
+                            />
+                        </div>
+                        <div>
+                            <div class="slider-label-group">
+                                <p>Green</p>
+                                <p id="color-slider-green-label">210</p>
+                            </div>
+                            <input
+                                type="range"
+                                name=""
+                                id="color-slider-green"
+                                min="0"
+                                max="255"
+                                value="210"
+                                class="color-slider color-slider-green"
+                            />
+                        </div>
+                        <div>
+                            <div class="slider-label-group">
+                                <p>Blue</p>
+                                <p id="color-slider-blue-label">120</p>
+                            </div>
+                            <input
+                                type="range"
+                                name=""
+                                id="color-slider-blue"
+                                min="0"
+                                max="255"
+                                value="120"
+                                class="color-slider color-slider-blue"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- section2 ends ..................... -->
+        </div>
+
+        <!-- javaScript codes are here ..................... -->
+        <script src="./script.js"></script>
+    </body>
+</html>
