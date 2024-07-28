@@ -7,6 +7,8 @@ const defaultColor = {
     blue: 238,
 };
 
+const copySound = new Audio('./copySound.wav');
+
 // default color presets .window.........defaultColor...
 const defaultPresetColors = [
     '#FF5733', // Red
@@ -22,6 +24,8 @@ const defaultPresetColors = [
     '#33A1FF', // Sky Blue
     '#FFC733', // Golden
 ];
+
+const customColors = [];
 
 // window onload funcion called
 window.onload = () => {
@@ -67,6 +71,22 @@ function main() {
 
     const copyToClipboardBtn = document.getElementById('copy-to-clipboard');
     copyToClipboardBtn.addEventListener('click', handleCopyToClipboard);
+    const presetColorsParent = document.getElementById('preset-colors');
+    presetColorsParent.addEventListener('click', function (e) {
+        const child = e.target;
+        console.log(child);
+        if (child.className === 'color-box') {
+            navigator.clipboard.writeText(child.getAttribute('data-color'));
+            copySound.volume = 0.2;
+            copySound.play();
+        }
+    });
+    const customColorParent = document.getElementById('custom-colors');
+    const saveToCustomBtn = document.getElementById('save-to-custom');
+    saveToCustomBtn.addEventListener(
+        'click',
+        handleSaveToCustomBtn(customColorParent, colorModeHexInp),
+    );
 }
 
 // event handlers ........................
@@ -145,6 +165,14 @@ function generateToastMessage(msg) {
     document.body.appendChild(toastContainer);
 }
 
+function handleSaveToCustomBtn(customColorParent, inputHex) {
+    return function () {
+        customColors.push(`#${inputHex.value}`);
+        removeChildren(customColorParent);
+        displayColorBoxes(customColorParent, customColors);
+    };
+}
+
 // DOM function..............................
 function getCheckedValueFromRadios(nodes) {
     let checkedValue = null;
@@ -196,6 +224,18 @@ function displayColorBoxes(parent, colors) {
         const colorBox = generateColorBox(color);
         parent.appendChild(colorBox);
     });
+}
+/**
+ *
+ * @param {object} parent
+ */
+
+function removeChildren(parent) {
+    let child = parent.lastElementChild;
+    while (child) {
+        parent.removeChild(child);
+        child = parent.lastElementChild;
+    }
 }
 // Utils .....................
 
