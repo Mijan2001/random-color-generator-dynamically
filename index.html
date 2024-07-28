@@ -22,7 +22,7 @@
                 /* text-align: center; */
             }
             .container {
-                height: 500px;
+                min-height: 500px;
             }
             .section-header {
                 display: flex;
@@ -128,8 +128,10 @@
             }
             .color-sliders-group {
                 size: 100%;
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
+                display: flex;
+                /* grid-template-columns: repeat(3, 1fr);
+                 */
+                flex-wrap: wrap;
                 justify-content: space-evenly;
             }
             label {
@@ -138,6 +140,29 @@
             .slider-label-group {
                 display: flex;
                 justify-content: space-evenly;
+            }
+
+            /* color boxex ..................  */
+            .preset-colors {
+                display: flex;
+                flex-wrap: wrap;
+                grid-area: 1rem;
+                justify-content: center;
+                padding: 1rem 0;
+            }
+
+            .color-box {
+                width: 70px;
+                height: 25px;
+                border-radius: 0.15rem;
+                cursor: pointer;
+                transition: all 0.2s;
+                margin: 2px;
+            }
+
+            .color-box:hover {
+                opacity: 0.9;
+                box-shadow: 0px 1px 4px 0 rgba(0, 0, 0, 2);
             }
         </style>
         <!-- css style ends here  -->
@@ -272,6 +297,16 @@
                 </div>
             </section>
             <!-- section2 ends ..................... -->
+
+            <!-- section3 for color plates ......... -->
+            <section class="section">
+                <div class="section-header">
+                    <h3 class="section-title">Presets Colors</h3>
+                </div>
+                <div class="divider"></div>
+                <div class="preset-colors" id="preset-colors"></div>
+            </section>
+            <!-- section3 for color plates ends...... -->
         </div>
 
         <!-- javaScript codes are here ..................... -->

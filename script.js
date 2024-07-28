@@ -6,10 +6,31 @@ const defaultColor = {
     green: 222,
     blue: 238,
 };
+
+// default color presets .window.........defaultColor...
+const defaultPresetColors = [
+    '#FF5733', // Red
+    '#33FF57', // Green
+    '#3357FF', // Blue
+    '#F3FF33', // Yellow
+    '#FF33A1', // Pink
+    '#33FFF1', // Cyan
+    '#FFB533', // Orange
+    '#8D33FF', // Purple
+    '#33FF88', // Light Green
+    '#FF3380', // Magenta
+    '#33A1FF', // Sky Blue
+    '#FFC733', // Golden
+];
+
 // window onload funcion called
 window.onload = () => {
     main();
     updateColorCodeToDom(defaultColor);
+    displayColorBoxes(
+        document.getElementById('preset-colors'),
+        defaultPresetColors,
+    );
 };
 
 // after clicking bg will be changed................
@@ -156,6 +177,26 @@ function updateColorCodeToDom(color) {
     document.getElementById('color-slider-blue-label').innerHTML = color.blue;
 }
 
+function generateColorBox(color) {
+    const div = document.createElement('div');
+    div.className = 'color-box';
+    div.style.backgroundColor = color;
+    div.setAttribute('data-color', color);
+
+    return div;
+}
+
+/**
+ *
+ * @param {object} parent
+ * @param {Array} colors
+ */
+function displayColorBoxes(parent, colors) {
+    colors.forEach((color) => {
+        const colorBox = generateColorBox(color);
+        parent.appendChild(colorBox);
+    });
+}
 // Utils .....................
 
 // decimal color generator...................
